@@ -119,8 +119,8 @@ Cooper, Evlondo. (2025). Observer-Dependent Entropy Retrieval in Linguistic Comp
 A Foundational Framework and Benchmarking Methodology.  
 https://doi.org/10.5281/zenodo.15428312
 
-Cooper, Evlondo. (2025). ODER modular entropy simulation (Version 1.0) [Software]. Zenodo.  
-https://doi.org/10.5281/zenodo.15428312
+Cooper, Evlondo. (2025). ODER Linguistic Framework v1.0.1 — Complete Benchmarking Suite (v1.01).
+Zenodo. https://doi.org/10.5281/zenodo.15778875
 ```
 
 ---
