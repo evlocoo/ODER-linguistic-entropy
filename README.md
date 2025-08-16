@@ -1,6 +1,6 @@
-**ODER: Observer-Dependent Entropy Retrieval for Linguistic Computation**
+# ODER: Observer-Dependent Entropy Retrieval for Linguistic Computation
 
-Version 1.0 
+**Version 1.1.0**
 
 This release enables direct, falsifiable testing of ODER predictions on controlled linguistic-entropy data. ODER implements an observer-dependent entropy-retrieval model for language comprehension, explicitly parameterizing attention, working memory, and prior knowledge in trace-based benchmarks.
 
@@ -18,24 +18,39 @@ https://doi.org/10.5281/zenodo.15428312
 
 **Main Framework Reproduction**
 
-Use this notebook to replicate all quantitative results, figures, and diagnostics from the paper.
+Use this notebook to replicate all quantitative results, figures, and diagnostics from the main study.
 
 *Notebook*: `ODER_Linguistic_Framework.ipynb`
 
 * Run all cells to generate entropy traces, observer-dependent fits, and comparative baselines.
-* Output plots and tables are saved to the `figures/` directory (created automatically if absent).
-* Reproduces Figures 1–4 and all model-fit tables in the manuscript.
+* Output plots and tables are saved to the `figures/` directory.
+* Reproduces model-fit tables and figures reported in the manuscript.
 
 **Interactive Playground**
 
-Use this notebook for exploratory fitting, falsification, and parameter-sensitivity analysis.
+Exploratory fitting, falsification, and parameter-sensitivity analysis.
 
 *Notebook*: `ODER_Interactive_Playground.ipynb`
 
 * Fit ODER curves to arbitrary sentence traces and observer classes.
-* Detect collapse points, visualize N400/P600 window mapping, and run bootstrap validation.
+* Detect collapse points, visualize N400/P600 mapping, and run bootstrap validation.
 * All outputs are sandboxed; publication data is not altered.
-* Interactive controls (sliders, dropdowns) work in Jupyter Lab or classic Jupyter Notebook with *ipywidgets* enabled.
+* Requires `ipywidgets` for interactive controls.
+
+**Natural Stories Validation**
+
+Tests ecological validity by applying fixed Aurian parameters to Natural Stories sentences with reading-time data.
+
+*Notebook*: `ODER_Natural_Stories_Validation.ipynb`
+
+* Loads a small Natural Stories subset plus targeted stress-test sentences.
+* Computes collapse-time error (Δτ\_res), RMSE, and shape-mismatch flags.
+* **Expected results:**
+
+  * Median |Δτ\_res| ≈ 0.6 s
+  * Median RMSE ≈ 0.46
+  * Most stress-test items flagged for shape mismatch
+  * Largest divergence: `ns_001` with +4.0 s offset
 
 ---
 
@@ -45,13 +60,22 @@ Use this notebook for exploratory fitting, falsification, and parameter-sensitiv
 pip install -r requirements.txt
 ```
 
-All dependencies are open-source and compatible with Python 3.x.
+Tested on Python 3.10+. Create a fresh environment to avoid dependency conflicts.
+
+---
+
+### Data
+
+* **Natural Stories subset**: sentences with per-token reading times (ms).
+* **Stress-test items**: hand-constructed sentences (garden-path, center embedding, coordination ambiguity).
+
+*No eye-tracking data are included in this repository.*
 
 ---
 
 ### Theoretical Framework
 
-ODER models linguistic comprehension as observer-dependent entropy retrieval, not mere prediction error or static syntactic complexity. The governing retrieval law is
+ODER models comprehension as **observer-dependent entropy retrieval**, not prediction error or static syntactic complexity. The governing law is
 
 ```
 dS_ret/dτ = γ(τ) [S_max − S_ret(τ)] tanh(τ / τ_char)
@@ -63,52 +87,54 @@ dS_ret/dτ = γ(τ) [S_max − S_ret(τ)] tanh(τ / τ_char)
 * γ(τ)   — Observer-dependent retrieval rate
 * S\_max  — Maximum retrievable entropy per sentence/trace
 
-**Key Distinctions**
+**Inverse decoder**
 
-* Retrieval is observer-relative, not purely stimulus-driven.
-* Collapse point (τ\_res) aligns with cognitive ERP signatures (N400/P600).
-* No reliance on opaque neural embeddings or over-fit baselines.
+From an observed entropy trajectory, the retrieval-rate profile can be recovered as:
+
+```
+γ(τ) = (dS_obs/dτ) / [(S_max − S_obs(τ)) tanh(τ / τ_char)]
+```
+
+**Collapse point**
+
+Collapse is marked at S\_ret(τ\_res) ≥ 0.95 S\_max with 400 ms steps, aligning τ\_res with standard N400/P600 ERP windows.
 
 ---
 
 ### Simulation Features
 
-**Model Specifications**
+* **Aurian corpus**: synthetic, controlled language with adjustable complexity
+* **Observer classes**: high vs. low context with distinct γ, τ\_char, and noise levels
+* **Baseline comparisons**: linear, exponential, power-law fits
+* **Diagnostics**: stress flags, failure taxonomy, parameter sensitivity sweeps
 
-* Aurian corpus: synthetic, controlled language for clean complexity manipulation
-* Eight stimulus sentences × two observer classes (high/low context)
-* Parameterized noise, hierarchical complexity, and observer-class divergence
-* Full failure logging and stress-test diagnostics
+**Visualizations**
 
-**Generated Visualizations**
-
-* Entropy-retrieval curves S(τ) by observer and sentence type
-* Comparative fit plots for ODER, linear, exponential, and power-law models
-* Failure-taxonomy tables with root-cause annotations
-* Collapse-token detection, ERP window mapping, and bootstrap confidence intervals
-* All plots and tables are written to the `figures/` directory by default
+* Entropy retrieval curves by observer and sentence type
+* Collapse-point detection and ERP window mapping
+* Failure taxonomy tables with root-cause notes
+* RMSE histograms and Δτ\_res error distributions
 
 ---
 
 ### Repository Structure
 
-| File                                | Description                                       |
-| ----------------------------------- | ------------------------------------------------- |
-| `ODER_Linguistic_Framework.ipynb`   | Main framework reproduction (all paper results)   |
-| `ODER_Interactive_Playground.ipynb` | Interactive fitting and falsification environment |
-| `requirements.txt`                  | Python dependencies                               |
-| `figures/`                          | Output directory for plots and visualizations     |
+| File                                    | Description                                       |
+| --------------------------------------- | ------------------------------------------------- |
+| `ODER_Linguistic_Framework.ipynb`       | Main framework reproduction (all results)         |
+| `ODER_Interactive_Playground.ipynb`     | Interactive fitting and falsification environment |
+| `ODER_Natural_Stories_Validation.ipynb` | Validation on Natural Stories reading-time data   |
+| `requirements.txt`                      | Python dependencies                               |
+| `figures/`                              | Output directory for plots and visualizations     |
 
 ---
 
 ### Extending the Framework
 
-* **Modify corpus** — add new sentences, languages, or observer profiles.
-* **Parameter exploration** — probe sensitivity, neurodivergent bands, non-typical observers.
-* **Model development** — generalize retrieval law, adapt failure taxonomy.
-* **Empirical mapping** — apply to EEG, eye-tracking, or behavioral datasets for in-vivo parameter recovery.
-
-Contributions that improve, stress-test, or generalize the framework are welcome.
+* **Modify corpus** — add new sentences, languages, or observer classes
+* **Parameter exploration** — probe sensitivity, neurodivergent bands
+* **Model development** — generalize retrieval laws, adapt failure taxonomy
+* **Empirical mapping** — apply to EEG, reading-time, or behavioral corpora
 
 ---
 
@@ -119,15 +145,15 @@ Cooper, Evlondo. (2025). Observer-Dependent Entropy Retrieval in Linguistic Comp
 A Foundational Framework and Benchmarking Methodology.  
 https://doi.org/10.5281/zenodo.15428312
 
-Cooper, Evlondo. (2025). ODER Linguistic Framework v1.0.1 — Complete Benchmarking Suite (v1.01).
-Zenodo. https://doi.org/10.5281/zenodo.15778875
+Cooper, Evlondo. (2025). ODER Linguistic Framework v1.1.0 — Benchmarking Suite with Natural Stories Validation.  
+Zenodo. https://doi.org/10.5281/zenodo.[new_DOI]
 ```
 
 ---
 
 ### License
 
-**MIT License** — see `LICENSE` for details.
+MIT License — see `LICENSE` for details.
 
 ---
 
@@ -135,3 +161,5 @@ Zenodo. https://doi.org/10.5281/zenodo.15778875
 
 Evlondo Cooper
 [evlocoo@pm.me](mailto:evlocoo@pm.me)
+
+---
