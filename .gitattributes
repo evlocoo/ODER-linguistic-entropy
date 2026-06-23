@@ -1,0 +1,6 @@
+*.ipynb linguist-generated=false
+*.csv text eol=lf
+*.json text eol=lf
+*.png binary
+*.zip binary
+

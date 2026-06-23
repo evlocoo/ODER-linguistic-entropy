@@ -1,0 +1,7 @@
+claim,artifact,result,status
+Common saturation calibration,spectral_calibration_summary.csv,max |S(3)-0.95| = 6.22e-15,PASS
+Primary five-class finite-resolution discriminability,spectral_noise_scan.csv; 01_noise_floor_curves.png,min heteroscedastic accuracy at sigma=0.04 = 0.855,PASS
+Pairwise calibrated-foil discriminability,spectral_pairwise_foil_discriminability.csv; 03_pairwise_foil_discriminability.png,min tanh-vs-foil accuracy at sigma=0.04 = 0.940,PASS
+Adversarial Gompertz near-equivalence,04_adversarial_gompertz_diagnostic.png,max deviation = 0.017; RMS = 0.006; noise floor = 0.040,PASS
+Classifier robustness under near-equivalent adversarial foil,spectral_adversarial_classifier_robustness.csv,max classifier accuracy = 0.613,PASS
+Trajectory-RMS boundary,spectral_rms_boundary.csv; 05_rms_boundary_curve.png,min accuracy above RMS noise floor = 0.998,PASS

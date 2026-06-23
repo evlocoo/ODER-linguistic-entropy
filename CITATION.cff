@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+title: "ODER Linguistic Entropy: Spectral-Admissibility Verification Artifact"
+message: "If you use this verification artifact, please cite the accompanying ODER linguistic comprehension theory paper and this repository release."
+type: software
+authors:
+  - family-names: Cooper
+    given-names: Evlondo
+version: "2.0.0-review"
+date-released: "2026-06-17"
+repository-code: "https://github.com/evlocoo/ODER-linguistic-entropy"
+license: MIT
+

@@ -1,0 +1,28 @@
+{
+  "artifact": "ODER-linguistic-entropy-theory-release-candidate",
+  "version": "2.0.0-review",
+  "run_mode": "private release review",
+  "prepared_date": "2026-06-17",
+  "target_public_repository": "evlocoo/ODER-linguistic-entropy",
+  "canonical_notebook": "notebooks/ODER_Linguistic_Spectral_Admissibility_verification_artifact_v1.ipynb",
+  "executed_notebook": "notebooks/ODER_Linguistic_Spectral_Admissibility_verification_artifact_v1.executed.ipynb",
+  "scope": "theory-side spectral-admissibility verification",
+  "human_data_validation": false,
+  "headline_checks": {
+    "calibration": "PASS",
+    "five_class_discriminability": "PASS",
+    "pairwise_discriminability": "PASS",
+    "adversarial_near_equivalence": "PASS",
+    "classifier_robustness": "PASS",
+    "trajectory_rms_boundary": "PASS"
+  },
+  "archive_boundary": {
+    "v1_2_notebooks": [
+      "ODER_Linguistic_Framework.ipynb",
+      "ODER_Interactive_Playground.ipynb",
+      "ODER_Natural_Stories_Validation.ipynb",
+      "ODER_Linguistics_Baseline_Foils.ipynb"
+    ],
+    "status": "prior computational materials; not current canonical verification artifact"
+  }
+}

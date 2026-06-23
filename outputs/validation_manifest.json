@@ -1,0 +1,115 @@
+{
+  "artifact": "ODER_Linguistic_Spectral_Admissibility_verification_artifact_v1",
+  "version": "1.0",
+  "analysis_preset": "LINGUISTIC_SPECTRAL_ADMISSIBILITY_V1",
+  "run_mode": "theory-side verification",
+  "generated_utc": "2026-06-17T19:11:38.455737+00:00",
+  "python": "3.11.12 | packaged by conda-forge | (main, Apr 10 2025, 22:09:00) [MSC v.1943 64 bit (AMD64)]",
+  "platform": "Windows-10-10.0.26200-SP0",
+  "master_seed": 42,
+  "primary_noise_model": "heteroscedastic",
+  "reference_noise_sigma": 0.04,
+  "noise_levels": [
+    0.0,
+    0.005,
+    0.01,
+    0.02,
+    0.04,
+    0.08,
+    0.16
+  ],
+  "trace_regimes": [
+    {
+      "name": "short",
+      "tau_max": 1.5,
+      "n_points": 12
+    },
+    {
+      "name": "medium",
+      "tau_max": 3.0,
+      "n_points": 24
+    },
+    {
+      "name": "long",
+      "tau_max": 6.0,
+      "n_points": 48
+    }
+  ],
+  "samples": {
+    "five_class_per_class": 300,
+    "pairwise_per_class": 400,
+    "boundary_per_class": 500,
+    "adversarial_classifier_per_class": 600
+  },
+  "pass_thresholds": {
+    "calibration_abs_error_max": 1e-06,
+    "five_class_accuracy_min_at_reference_noise": 0.8,
+    "pairwise_accuracy_min_at_reference_noise": 0.9,
+    "adversarial_max_deviation_max": 0.04,
+    "adversarial_classifier_accuracy_max": 0.65,
+    "rms_boundary_accuracy_min_above_noise_floor": 0.95
+  },
+  "envelopes": [
+    "tanh",
+    "logistic",
+    "gompertz",
+    "stretched_exp",
+    "hyperbolic"
+  ],
+  "adversarial_gompertz": {
+    "c": 0.24095150966247436,
+    "eta": 0.7056627547962759
+  },
+  "verification_status": [
+    {
+      "claim": "Common saturation calibration",
+      "artifact": "spectral_calibration_summary.csv",
+      "result": "max |S(3)-0.95| = 6.22e-15",
+      "status": "PASS"
+    },
+    {
+      "claim": "Primary five-class finite-resolution discriminability",
+      "artifact": "spectral_noise_scan.csv; 01_noise_floor_curves.png",
+      "result": "min heteroscedastic accuracy at sigma=0.04 = 0.855",
+      "status": "PASS"
+    },
+    {
+      "claim": "Pairwise calibrated-foil discriminability",
+      "artifact": "spectral_pairwise_foil_discriminability.csv; 03_pairwise_foil_discriminability.png",
+      "result": "min tanh-vs-foil accuracy at sigma=0.04 = 0.940",
+      "status": "PASS"
+    },
+    {
+      "claim": "Adversarial Gompertz near-equivalence",
+      "artifact": "04_adversarial_gompertz_diagnostic.png",
+      "result": "max deviation = 0.017; RMS = 0.006; noise floor = 0.040",
+      "status": "PASS"
+    },
+    {
+      "claim": "Classifier robustness under near-equivalent adversarial foil",
+      "artifact": "spectral_adversarial_classifier_robustness.csv",
+      "result": "max classifier accuracy = 0.613",
+      "status": "PASS"
+    },
+    {
+      "claim": "Trajectory-RMS boundary",
+      "artifact": "spectral_rms_boundary.csv; 05_rms_boundary_curve.png",
+      "result": "min accuracy above RMS noise floor = 0.998",
+      "status": "PASS"
+    }
+  ],
+  "artifacts": [
+    "spectral_calibration_summary.csv",
+    "spectral_noise_scan.csv",
+    "spectral_pairwise_foil_discriminability.csv",
+    "spectral_adversarial_classifier_robustness.csv",
+    "spectral_rms_boundary.csv",
+    "spectral_verification_report.csv",
+    "figures/00_envelope_shapes_recovered_gamma.png",
+    "figures/01_noise_floor_curves.png",
+    "figures/02_confusion_matrix_short_sigma004.png",
+    "figures/03_pairwise_foil_discriminability.png",
+    "figures/04_adversarial_gompertz_diagnostic.png",
+    "figures/05_rms_boundary_curve.png"
+  ]
+}
